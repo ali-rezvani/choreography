@@ -1,1 +1,1 @@
-Demo project for saga choreography
+Demo project for Reactive Event-Driven Microservices & Saga Pattern(Choreography)
