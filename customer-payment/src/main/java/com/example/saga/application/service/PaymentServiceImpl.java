@@ -1,6 +1,7 @@
 package com.example.saga.application.service;
 
 import com.example.saga.application.entity.Customer;
+import com.example.saga.application.entity.CustomerPayment;
 import com.example.saga.application.mapper.EntityDtoMapper;
 import com.example.saga.application.repository.CustomerRepository;
 import com.example.saga.application.repository.PaymentRepository;
@@ -24,26 +25,27 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
-    private final Mono<Customer> CUSTOMER_NOT_FOUND=Mono.error(new CustomerNotFoundException());
-    private final Mono<Customer> INSUFFICIENT_BALANCE=Mono.error(new InsufficientBalanceException());
+    private final Mono<Customer> CUSTOMER_NOT_FOUND = Mono.error(new CustomerNotFoundException());
+    private final Mono<Customer> INSUFFICIENT_BALANCE = Mono.error(new InsufficientBalanceException());
     private final CustomerRepository customerRepository;
     private final PaymentRepository paymentRepository;
+
     @Override
     @Transactional
     public Mono<PaymentDto> process(PaymentProcessRequest request) {
         return DuplicateEventValidator.validate(
-                this.paymentRepository.existsByOrderId(request.orderId()),
-                this.customerRepository.findById(request.customerId()))
+                        this.paymentRepository.existsByOrderId(request.orderId()),
+                        this.customerRepository.findById(request.customerId()))
                 .switchIfEmpty(CUSTOMER_NOT_FOUND)
-                .filter(c->c.getBalance()>=request.amount())
+                .filter(c -> c.getBalance() >= request.amount())
                 .switchIfEmpty(INSUFFICIENT_BALANCE)
-                .flatMap(c->this.deductPayment(c,request))
-                .doOnNext(dto->log.info("Payment process successful for {}",dto.orderId()));
+                .flatMap(c -> this.deductPayment(c, request))
+                .doOnNext(dto -> log.info("Payment process successful for {}", dto.orderId()));
     }
 
-    private Mono<PaymentDto> deductPayment(Customer customer,PaymentProcessRequest request){
-        var customerPayment= EntityDtoMapper.toCustomerPayment(request);
-        customer.setBalance(customer.getBalance()-request.amount());
+    private Mono<PaymentDto> deductPayment(Customer customer, PaymentProcessRequest request) {
+        var customerPayment = EntityDtoMapper.toCustomerPayment(request);
+        customer.setBalance(customer.getBalance() - request.amount());
         customerPayment.setStatus(PaymentStatus.DEDUCTED);
         return this.customerRepository.save(customer)
                 .then(this.paymentRepository.save(customerPayment))
@@ -51,7 +53,19 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    @Transactional
     public Mono<PaymentDto> refund(UUID orderId) {
-        return null;
+        return this.paymentRepository.findCustomerPaymentByOrOrderIdAndStatus(orderId, PaymentStatus.DEDUCTED)
+                .zipWhen(cp -> this.customerRepository.findById(cp.getCustomerId()))
+                .flatMap(tuple->this.refundPayment(tuple.getT1(),tuple.getT2()))
+                .doOnNext(dto->log.info("Refund amount {} for {}",dto.amount(),dto.orderId()));
+    }
+
+    private Mono<PaymentDto> refundPayment(CustomerPayment payment, Customer customer) {
+        customer.setBalance(customer.getBalance() + payment.getAmount());
+        payment.setStatus(PaymentStatus.REFUNDED);
+        return this.customerRepository.save(customer)
+                .then(this.paymentRepository.save(payment))
+                .map(EntityDtoMapper::toPaymentDto);
     }
 }
