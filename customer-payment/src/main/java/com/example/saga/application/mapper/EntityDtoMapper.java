@@ -18,6 +18,7 @@ public class EntityDtoMapper {
         return PaymentDto.builder()
                 .paymentId(customerPayment.getPaymentId())
                 .orderId(customerPayment.getOrderId())
+                .customerId(customerPayment.getCustomerId())
                 .amount(customerPayment.getAmount())
                 .status(customerPayment.getStatus())
                 .status(customerPayment.getStatus())
