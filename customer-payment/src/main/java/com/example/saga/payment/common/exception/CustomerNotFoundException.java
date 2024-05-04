@@ -1,4 +1,4 @@
-package com.example.saga.common.exception;
+package com.example.saga.payment.common.exception;
 
 public class CustomerNotFoundException extends RuntimeException{
     private static final String MESSAGE="Customer not found";

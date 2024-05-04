@@ -1,4 +1,4 @@
-package com.example.saga.application.entity;
+package com.example.saga.payment.application.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

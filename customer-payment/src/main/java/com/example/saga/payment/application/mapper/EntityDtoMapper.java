@@ -1,8 +1,8 @@
-package com.example.saga.application.mapper;
+package com.example.saga.payment.application.mapper;
 
-import com.example.saga.application.entity.CustomerPayment;
-import com.example.saga.common.dto.PaymentDto;
-import com.example.saga.common.dto.PaymentProcessRequest;
+import com.example.saga.payment.application.entity.CustomerPayment;
+import com.example.saga.payment.common.dto.PaymentDto;
+import com.example.saga.payment.common.dto.PaymentProcessRequest;
 
 public class EntityDtoMapper {
 

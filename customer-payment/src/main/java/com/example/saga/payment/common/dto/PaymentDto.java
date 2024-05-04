@@ -1,4 +1,4 @@
-package com.example.saga.common.dto;
+package com.example.saga.payment.common.dto;
 
 import com.example.saga.common.events.payment.PaymentStatus;
 import lombok.Builder;

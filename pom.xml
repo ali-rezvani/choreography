@@ -69,7 +69,7 @@
 				<configuration>
 					<source>17</source>
 					<target>17</target>
-					<compilerArgs>--enable-previw</compilerArgs>
+					<compilerArgs>--enable-preview</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>

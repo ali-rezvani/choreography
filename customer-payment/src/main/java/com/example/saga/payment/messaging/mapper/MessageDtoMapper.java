@@ -1,7 +1,7 @@
-package com.example.saga.messaging.mapper;
+package com.example.saga.payment.messaging.mapper;
 
-import com.example.saga.common.dto.PaymentDto;
-import com.example.saga.common.dto.PaymentProcessRequest;
+import com.example.saga.payment.common.dto.PaymentDto;
+import com.example.saga.payment.common.dto.PaymentProcessRequest;
 import com.example.saga.common.events.order.OrderEvent;
 import com.example.saga.common.events.payment.PaymentEvent;
 import reactor.core.publisher.Mono;

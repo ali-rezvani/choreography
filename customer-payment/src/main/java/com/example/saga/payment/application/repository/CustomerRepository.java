@@ -1,6 +1,6 @@
-package com.example.saga.application.repository;
+package com.example.saga.payment.application.repository;
 
-import com.example.saga.application.entity.Customer;
+import com.example.saga.payment.application.entity.Customer;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,21 +1,17 @@
-package com.example.saga.application.service;
+package com.example.saga.payment.application.service;
 
-import com.example.saga.application.entity.Customer;
-import com.example.saga.application.entity.CustomerPayment;
-import com.example.saga.application.mapper.EntityDtoMapper;
-import com.example.saga.application.repository.CustomerRepository;
-import com.example.saga.application.repository.PaymentRepository;
-import com.example.saga.common.dto.PaymentDto;
-import com.example.saga.common.dto.PaymentProcessRequest;
-import com.example.saga.common.events.order.OrderEvent;
-import com.example.saga.common.events.payment.PaymentEvent;
+import com.example.saga.payment.application.entity.Customer;
+import com.example.saga.payment.application.entity.CustomerPayment;
+import com.example.saga.payment.application.mapper.EntityDtoMapper;
+import com.example.saga.payment.application.repository.CustomerRepository;
+import com.example.saga.payment.application.repository.PaymentRepository;
+import com.example.saga.payment.common.dto.PaymentDto;
+import com.example.saga.payment.common.dto.PaymentProcessRequest;
 import com.example.saga.common.events.payment.PaymentStatus;
-import com.example.saga.common.exception.CustomerNotFoundException;
-import com.example.saga.common.exception.EventAlreadyProcessedException;
-import com.example.saga.common.exception.InsufficientBalanceException;
-import com.example.saga.common.service.PaymentService;
+import com.example.saga.payment.common.exception.CustomerNotFoundException;
+import com.example.saga.payment.common.exception.InsufficientBalanceException;
+import com.example.saga.payment.common.service.PaymentService;
 import com.example.saga.common.util.DuplicateEventValidator;
-import com.example.saga.messaging.mapper.MessageDtoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
-import java.util.function.UnaryOperator;
 
 @Slf4j
 @Service

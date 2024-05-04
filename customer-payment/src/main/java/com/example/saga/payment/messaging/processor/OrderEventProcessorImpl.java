@@ -1,11 +1,11 @@
-package com.example.saga.messaging.processor;
+package com.example.saga.payment.messaging.processor;
 
 import com.example.saga.common.events.order.OrderEvent;
 import com.example.saga.common.events.payment.PaymentEvent;
 import com.example.saga.common.exception.EventAlreadyProcessedException;
 import com.example.saga.common.processor.OrderEventProcessor;
-import com.example.saga.common.service.PaymentService;
-import com.example.saga.messaging.mapper.MessageDtoMapper;
+import com.example.saga.payment.common.service.PaymentService;
+import com.example.saga.payment.messaging.mapper.MessageDtoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

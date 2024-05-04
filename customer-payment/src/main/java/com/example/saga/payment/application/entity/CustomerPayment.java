@@ -1,4 +1,4 @@
-package com.example.saga.application.entity;
+package com.example.saga.payment.application.entity;
 
 import com.example.saga.common.events.payment.PaymentStatus;
 import lombok.AllArgsConstructor;

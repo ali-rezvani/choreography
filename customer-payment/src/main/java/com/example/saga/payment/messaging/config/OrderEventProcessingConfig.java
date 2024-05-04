@@ -1,4 +1,4 @@
-package com.example.saga.messaging.config;
+package com.example.saga.payment.messaging.config;
 
 import com.example.saga.common.events.order.OrderEvent;
 import com.example.saga.common.events.payment.PaymentEvent;
@@ -27,6 +27,8 @@ public class OrderEventProcessingConfig {
                 .map(MessageConverter::convertToRecord)
                 .doOnNext(r->log.info("customer payment received {}",r.message()))
                 .concatMap(r->this.eventProcessor.process(r.message())
+//                        .retry(2)
+//                        .onErrorResume()
                         .doOnSuccess(e->r.acknowledgment().acknowledge())
                 )
                 .map(this::toMessage);

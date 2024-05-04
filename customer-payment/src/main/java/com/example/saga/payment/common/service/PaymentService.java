@@ -1,7 +1,7 @@
-package com.example.saga.common.service;
+package com.example.saga.payment.common.service;
 
-import com.example.saga.common.dto.PaymentDto;
-import com.example.saga.common.dto.PaymentProcessRequest;
+import com.example.saga.payment.common.dto.PaymentDto;
+import com.example.saga.payment.common.dto.PaymentProcessRequest;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
