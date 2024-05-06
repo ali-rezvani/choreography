@@ -4,15 +4,10 @@ spring:
       definition: processor
     stream:
       default:
-        producer:
-          useNativeEncoding: true
+        useNativeEncoding: true
       bindings:
         processor-in-0:
           destination: order-events-topic
-          group: shipping-service-group
-        processor-out-0:
-          destination: shipping-events-topic
-
       kafka:
         binder:
           consumer-properties:
@@ -23,4 +18,3 @@ spring:
           producer-properties:
             "value.serializer": org.springframework.kafka.support.serializer.JsonSerializer
             "key.serializer": org.apache.kafka.common.serialization.StringSerializer
-
