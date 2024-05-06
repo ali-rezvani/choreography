@@ -8,6 +8,10 @@ spring:
       bindings:
         processor-in-0:
           destination: order-events-topic
+          group: shipping-service-group
+        processor-out-0:
+          destination: shipping-events-topic
+
       kafka:
         binder:
           consumer-properties:
