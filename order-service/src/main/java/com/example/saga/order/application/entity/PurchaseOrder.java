@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -24,4 +25,6 @@ public class PurchaseOrder {
     private Integer amount;
     private OrderStatus status;
     private Instant deliveryDate;
+    @Version
+    private Integer version;
 }
